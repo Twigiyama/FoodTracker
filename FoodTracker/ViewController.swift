@@ -114,6 +114,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        })
 //        
 //        task.resume()
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: "https://api.nutritionix.com/v1_1/search/")!)
+        let session = NSURLSession.sharedSession()
+        request.HTTPMethod = "POST"
+        var params = [
+            "appID" : kAppID,
+            "appKey": kAppKey,
+            "fields": ["item_name", "brand_name", "keywords", "usda_fields"],
+            "limit": "50",
+            "query": searchString,
+            "filters": ["existis": ["usda_fields": true]]   ]
+        var error: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &error)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
     }
 }
 
