@@ -119,17 +119,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
         var params = [
-            "appID" : kAppID,
+            "appId" : kAppID,
             "appKey": kAppKey,
             "fields": ["item_name", "brand_name", "keywords", "usda_fields"],
             "limit": "50",
             "query": searchString,
-            "filters": ["existis": ["usda_fields": true]]   ]
+            "filters": ["exists": ["usda_fields": true]]   ]
         var error: NSError?
         request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &error)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
+        var task = session.dataTaskWithRequest(request, completionHandler: { (data, response, err) -> Void in
+            var stringData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            println(stringData)
+            var conversionErr: NSError?
+            var jsonDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves, error: &conversionErr) as? NSDictionary
+            println(jsonDictionary)
+        })
+        task.resume()
     }
 }
 
