@@ -84,6 +84,41 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    //Mark - UTTableView delegate
+    
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let selectedScopeButtonIndex = self.searchController.searchBar.selectedScopeButtonIndex
+        
+        if selectedScopeButtonIndex == 0 {
+            
+            var searchFoodName: String
+            
+            if self.searchController.active {
+                
+                searchFoodName = filteredSuggestedSearchFoods[indexPath.row]
+                
+            }
+            
+            else {
+                
+                searchFoodName = suggestedSearchFoods[indexPath.row]
+            }
+            
+            self.searchController.searchBar.selectedScopeButtonIndex = 1
+            makeRequest(searchFoodName)
+            
+            
+        }
+        else if selectedScopeButtonIndex == 1 {
+            
+        }
+        
+        else  if selectedScopeButtonIndex == 2 {
+            
+        }
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let selectedScopeButtonIndex = self.searchController.searchBar.selectedScopeButtonIndex
         
@@ -125,6 +160,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         self.searchController.searchBar.selectedScopeButtonIndex = 1
         makeRequest(searchBar.text)
+    }
+    
+    func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        self.tableView.reloadData()
     }
     
     func makeRequest (searchString: String) {
