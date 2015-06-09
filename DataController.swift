@@ -118,12 +118,49 @@ class DataController {
                                             usdaItem.cholesterol = "\(cholValue)"
                                         }
                                     }
+                                    else {
+                                        usdaItem.cholesterol = "0"
+                                    }
                                     
                                     //protein
                                     if let protDictionary:NSDictionary = usdaFieldsDictionary["PROCNT"] as? NSDictionary {
                                         if let protValue: AnyObject = protDictionary["value"] {
                                             usdaItem.protein = "\(protValue)"
                                         }
+                                    }
+                                    else {
+                                        usdaItem.protein = "0"
+                                    }
+                                    
+                                    //sugar
+                                    if let sugarDictionary:NSDictionary = usdaFieldsDictionary["SUGAR"] as? NSDictionary {
+                                        if let sugarValue: AnyObject = sugarDictionary["value"] {
+                                            usdaItem.sugar = "\(sugarValue)"
+                                        }
+                                    }
+                                    else {
+                                        usdaItem.sugar = "0"
+                                    }
+                                    
+                                    //Vitamin C
+                                    if let vitcDictionary:NSDictionary = usdaFieldsDictionary["VITC"] as? NSDictionary {
+                                        if let vitcValue: AnyObject = vitcDictionary["value"] {
+                                            usdaItem.vitaminC = "\(vitcValue)"
+                                        }
+                                    }
+                                    else {
+                                        usdaItem.vitaminC = "0"
+                                    }
+                                    
+                                    //Energy
+                                    if let energyDictionary:NSDictionary = usdaFieldsDictionary["ENERC_KCAL:"] as? NSDictionary {
+                                        if let energyValue: AnyObject = energyDictionary["value"] {
+                                            usdaItem.energy = "\(energyValue)"
+                                        }
+                                    }
+                                    
+                                    else {
+                                        usdaItem.energy = "0"
                                     }
                                     
                                     
