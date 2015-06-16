@@ -43,7 +43,7 @@
 		A9B619461B123FDC003563E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9B619471B123FDC003563E0 /* FoodTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTrackerTests.swift; sourceTree = "<group>"; };
 		A9E647AE1B25D65B0065BC80 /* FoodTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FoodTracker.xcdatamodel; sourceTree = "<group>"; };
-		A9E647B21B2637090065BC80 /* USDAItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = USDAItem.swift; sourceTree = "<group>"; };
+		A9E647B21B2637090065BC80 /* USDAItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = USDAItem.swift; path = ../USDAItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +67,6 @@
 		A9B619231B123FDC003563E0 = {
 			isa = PBXGroup;
 			children = (
-				A9E647B21B2637090065BC80 /* USDAItem.swift */,
 				A9B6192E1B123FDC003563E0 /* FoodTracker */,
 				A9B619441B123FDC003563E0 /* FoodTrackerTests */,
 				A9B6192D1B123FDC003563E0 /* Products */,
@@ -86,6 +85,7 @@
 		A9B6192E1B123FDC003563E0 /* FoodTracker */ = {
 			isa = PBXGroup;
 			children = (
+				A9E647B21B2637090065BC80 /* USDAItem.swift */,
 				A938C58A1B247D6500BB59B8 /* DataController.swift */,
 				A9B619311B123FDC003563E0 /* AppDelegate.swift */,
 				A9E647AD1B25D65B0065BC80 /* FoodTracker.xcdatamodeld */,

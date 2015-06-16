@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import CoreData
 
+let kUSDAItemCompleted = "USDAItemInstanceComplete"
+
 class DataController {
     
     class func jsonAsUSDAIdAndNameSearchResults (json: NSDictionary) -> [(name: String, idValue: String)]{
@@ -55,6 +57,7 @@ class DataController {
                         
                         if items?.count != 0 {
                             // Item already saved so we don't want to save again.
+                            println("This item was already saved")
                             return
                         }
                         
@@ -163,6 +166,8 @@ class DataController {
                                         usdaItem.energy = "0"
                                     }
                                     
+                                    (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
+                                    NSNotificationCenter.defaultCenter().postNotificationName(kUSDAItemCompleted, object: usdaItem)
                                     
                                     
                                 }

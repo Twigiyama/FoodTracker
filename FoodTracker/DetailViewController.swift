@@ -12,10 +12,26 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var textView: UITextView!
     
+    var usdaItem:USDAItem?
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "usdaItemDidComplete:", name: kUSDAItemCompleted, object: nil)
+    
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if usdaItem != nil {
+            textView.attributedText = createAttributedString(usdaItem!)
+        }
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,7 +49,32 @@ class DetailViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func usdaItemDidComplete(notification: NSNotification) {
+        println("usdaItemDidComplete in DetailViewController")
+        usdaItem = notification.object as? USDAItem
+    }
 
     @IBAction func eatItButtonPressed(sender: UIBarButtonItem) {
+    }
+    
+    func createAttributedString(usdaItem: USDAItem) -> NSAttributedString {
+        
+        var itemAttributedString = NSMutableAttributedString()
+        
+        // Create the Paragraoph Style attribute
+        var centeredParagraphStyle = NSMutableParagraphStyle()
+        centeredParagraphStyle.alignment = NSTextAlignment.Center
+        centeredParagraphStyle.lineSpacing = 10.0
+        
+        // Create the attributes dictionary which will include the above paragraph style.
+        var titleAttributesDictionary = [
+            NSForegroundColorAttributeName: UIColor.blackColor(),
+            NSFontAttributeName: UIFont.boldSystemFontOfSize(22.0),
+            NSParagraphStyleAttributeName: centeredParagraphStyle]
+        
+        let titleString = NSAttributedString(string: "\(usdaItem.name)\n", attributes: titleAttributesDictionary)
+        itemAttributedString.appendAttributedString(titleString)
+        return itemAttributedString
     }
 }
