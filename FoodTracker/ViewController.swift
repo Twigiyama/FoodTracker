@@ -141,6 +141,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.performSegueWithIdentifier("toDetailVCSegue", sender: nil)
             let idValue = apiSearchForFoods[indexPath.row].idValue
             dataController.saveUSDAItemForID(idValue, json: jsonReponse)
+ 
             
         }
         
@@ -265,7 +266,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //            println(stringData)
             var conversionErr: NSError?
             var jsonDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves, error: &conversionErr) as? NSDictionary
-            // println(jsonDictionary)
+             println(jsonDictionary)
             
             if conversionErr != nil {
                 println(conversionErr!.localizedDescription)

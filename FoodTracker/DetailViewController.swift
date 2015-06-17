@@ -53,6 +53,10 @@ class DetailViewController: UIViewController {
     func usdaItemDidComplete(notification: NSNotification) {
         println("usdaItemDidComplete in DetailViewController")
         usdaItem = notification.object as? USDAItem
+        
+        if self.isViewLoaded() && self.view.window != nil {
+            textView.attributedText = createAttributedString(usdaItem!)
+        }
     }
 
     @IBAction func eatItButtonPressed(sender: UIBarButtonItem) {
@@ -62,19 +66,67 @@ class DetailViewController: UIViewController {
         
         var itemAttributedString = NSMutableAttributedString()
         
-        // Create the Paragraoph Style attribute
+        // Paragraph styles
         var centeredParagraphStyle = NSMutableParagraphStyle()
         centeredParagraphStyle.alignment = NSTextAlignment.Center
         centeredParagraphStyle.lineSpacing = 10.0
         
-        // Create the attributes dictionary which will include the above paragraph style.
+        var leftAlignedParagrahStyle = NSMutableParagraphStyle()
+        leftAlignedParagrahStyle.alignment = NSTextAlignment.Left
+        centeredParagraphStyle.lineSpacing = 20.0
+        
+        // Attributes dictionaries
         var titleAttributesDictionary = [
             NSForegroundColorAttributeName: UIColor.blackColor(),
             NSFontAttributeName: UIFont.boldSystemFontOfSize(22.0),
             NSParagraphStyleAttributeName: centeredParagraphStyle]
         
+        var styleFirstWordAttributesDictionary = [
+            NSForegroundColorAttributeName: UIColor.blackColor(),
+            NSFontAttributeName: UIFont.boldSystemFontOfSize(22.0),
+            NSParagraphStyleAttributeName: leftAlignedParagrahStyle]
+        
+        var style1AttributesDictionary = [
+            NSForegroundColorAttributeName: UIColor.darkGrayColor(),
+            NSFontAttributeName: UIFont.systemFontOfSize(18.0),
+            NSParagraphStyleAttributeName: leftAlignedParagrahStyle]
+        
+        var style2AttributesDictionary = [
+            NSForegroundColorAttributeName: UIColor.lightGrayColor(),
+            NSFontAttributeName: UIFont.systemFontOfSize(18.0),
+            NSParagraphStyleAttributeName: leftAlignedParagrahStyle]
+        
+        
+        
+        //Attributed string for title
         let titleString = NSAttributedString(string: "\(usdaItem.name)\n", attributes: titleAttributesDictionary)
         itemAttributedString.appendAttributedString(titleString)
+
+        
+        //Attrributed string for calcium
+        let calciumTitleString = NSAttributedString(string: "Calcium ", attributes: styleFirstWordAttributesDictionary)
+        let calciumBodyString = NSAttributedString(string: String(format: "%.2f", (usdaItem.calcium as NSString).floatValue) + "mg\n", attributes: style1AttributesDictionary)
+        itemAttributedString.appendAttributedString(calciumTitleString)
+        itemAttributedString.appendAttributedString(calciumBodyString)
+        
+        //Attributed string for carbohydrate
+        let carbohydrateTitleString = NSAttributedString(string: "Carbohydrate ", attributes: styleFirstWordAttributesDictionary)
+        let carbohydateBodyString = NSAttributedString(string: String(format: "%.2f", (usdaItem.carbohydrate as NSString).floatValue) + "g\n", attributes: style2AttributesDictionary)
+        itemAttributedString.appendAttributedString(carbohydrateTitleString)
+        itemAttributedString.appendAttributedString(carbohydateBodyString)
+        
+        //Attributed string for cholesterol
+        let cholesterolTitleString = NSAttributedString(string: "Choelsterol ", attributes: styleFirstWordAttributesDictionary)
+        let cholesterolBodyString = NSAttributedString(string: String(format: "%.2f", (usdaItem.cholesterol as NSString).floatValue) + "mg\n", attributes: style1AttributesDictionary)
+        itemAttributedString.appendAttributedString(cholesterolTitleString)
+        itemAttributedString.appendAttributedString(cholesterolBodyString)
+        
+        //Attributed string for Energy
+        let energyTitleString = NSAttributedString(string: "Energy ", attributes: styleFirstWordAttributesDictionary)
+        let energyBodyString = NSAttributedString(string: String(format: "%.2f", (usdaItem.energy as NSString).floatValue) + "kcal\n", attributes: style2AttributesDictionary)
+        itemAttributedString.appendAttributedString(energyTitleString)
+        itemAttributedString.appendAttributedString(energyBodyString)
+        
         return itemAttributedString
     }
 }

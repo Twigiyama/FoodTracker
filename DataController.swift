@@ -58,6 +58,8 @@ class DataController {
                         if items?.count != 0 {
                             // Item already saved so we don't want to save again.
                             println("This item was already saved")
+                            let usdaItem = items?[0] as! USDAItem
+                            NSNotificationCenter.defaultCenter().postNotificationName(kUSDAItemCompleted, object: usdaItem)
                             return
                         }
                         
@@ -156,7 +158,7 @@ class DataController {
                                     }
                                     
                                     //Energy
-                                    if let energyDictionary:NSDictionary = usdaFieldsDictionary["ENERC_KCAL:"] as? NSDictionary {
+                                    if let energyDictionary:NSDictionary = usdaFieldsDictionary["ENERC_KCAL"] as? NSDictionary {
                                         if let energyValue: AnyObject = energyDictionary["value"] {
                                             usdaItem.energy = "\(energyValue)"
                                         }
