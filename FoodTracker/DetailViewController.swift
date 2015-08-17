@@ -24,6 +24,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        requestAuthorisationForHealthStore()
 
         // Do any additional setup after loading the view.
         if usdaItem != nil {
@@ -169,15 +170,25 @@ class DetailViewController: UIViewController {
         ]
         
         let dataTypesToRead = [
-                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryCalcium),
-                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryCarbohydrates),
-                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryCholesterol),
-                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryEnergyConsumed),
-                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryFatTotal),
-                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryProtein),
-                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietarySugar),
-                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryVitaminC)
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryCalcium),
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryCarbohydrates),
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryCholesterol),
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryEnergyConsumed),
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryFatTotal),
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryProtein),
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietarySugar),
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryVitaminC)
             ]
+        var store: HealthStoreConstant = HealthStoreConstant()
+        store.healthStore?.requestAuthorizationToShareTypes(NSSet(array: dataTypesToWrite) as Set<NSObject>, readTypes: NSSet(array: dataTypesToRead) as Set<NSObject>, completion: { (success, error) -> Void in
+            if success {
+                println("User completed authorisation request")
+            } else {
+                println("User canceled authorisation request \(error)")
+            }
+        })
+            
+        
 
     }
 }
