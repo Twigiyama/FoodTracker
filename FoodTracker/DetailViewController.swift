@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HealthKit
 
 class DetailViewController: UIViewController {
 
@@ -152,5 +153,31 @@ class DetailViewController: UIViewController {
         itemAttributedString.appendAttributedString(vitaminCBodyString)
         
         return itemAttributedString
+    }
+    
+    func requestAuthorisationForHealthStore() {
+        
+        let dataTypesToWrite = [
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryCalcium),
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryCarbohydrates),
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryCholesterol),
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryEnergyConsumed),
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryFatTotal),
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryProtein),
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietarySugar),
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryVitaminC)
+        ]
+        
+        let dataTypesToRead = [
+                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryCalcium),
+                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryCarbohydrates),
+                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryCholesterol),
+                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryEnergyConsumed),
+                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryFatTotal),
+                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryProtein),
+                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietarySugar),
+                HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryVitaminC)
+            ]
+
     }
 }
