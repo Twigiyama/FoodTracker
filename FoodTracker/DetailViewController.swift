@@ -127,6 +127,30 @@ class DetailViewController: UIViewController {
         itemAttributedString.appendAttributedString(energyTitleString)
         itemAttributedString.appendAttributedString(energyBodyString)
         
+        //Attributed string for FAT
+        let fatTotalTitleString = NSAttributedString(string: "Total Fat ", attributes: styleFirstWordAttributesDictionary)
+        let fatTotalBodyString = NSAttributedString(string: String(format: "%.2f", (usdaItem.fatTotal as NSString).floatValue) + "g\n", attributes: style1AttributesDictionary)
+        itemAttributedString.appendAttributedString(fatTotalTitleString)
+        itemAttributedString.appendAttributedString(fatTotalBodyString)
+        
+        //Attributed string for Protein
+        let proteinTitleString = NSAttributedString(string: "Protein ", attributes: styleFirstWordAttributesDictionary)
+        let proteinBodyString = NSAttributedString(string: String(format: "%.2f", (usdaItem.protein as NSString).floatValue) + "g\n", attributes: style2AttributesDictionary)
+        itemAttributedString.appendAttributedString(proteinTitleString)
+        itemAttributedString.appendAttributedString(proteinBodyString)
+        
+        //Attributed string for Sugar
+        let sugarTitleString = NSAttributedString(string: "Sugar ", attributes: styleFirstWordAttributesDictionary)
+        let sugarBodyString = NSAttributedString(string: String(format: "%.2f", (usdaItem.sugar as NSString).floatValue) + "g\n", attributes: style1AttributesDictionary)
+        itemAttributedString.appendAttributedString(sugarTitleString)
+        itemAttributedString.appendAttributedString(sugarBodyString)
+        
+        //Attributed string for VitaminC
+        let vitaminCTitleString = NSAttributedString(string: "Vitamin C ", attributes: styleFirstWordAttributesDictionary)
+        let vitaminCBodyString = NSAttributedString(string: String(format: "%.2f", (usdaItem.sugar as NSString).floatValue) + "mg\n", attributes: style2AttributesDictionary)
+        itemAttributedString.appendAttributedString(vitaminCTitleString)
+        itemAttributedString.appendAttributedString(vitaminCBodyString)
+        
         return itemAttributedString
     }
 }
