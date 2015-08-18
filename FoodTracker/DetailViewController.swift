@@ -220,6 +220,24 @@ class DetailViewController: UIViewController {
             let vitaminCUnit = HKQuantity(unit: HKUnit.gramUnitWithMetricPrefix(HKMetricPrefix.Milli), doubleValue: (foodItem.vitaminC as NSString).doubleValue)
             let vitaminC = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryVitaminC), quantity: vitaminCUnit, startDate: timeFoodWasEntered, endDate: timeFoodWasEntered)
             
+            let cholesterolUnit = HKQuantity(unit: HKUnit.gramUnitWithMetricPrefix(HKMetricPrefix.Milli), doubleValue: (foodItem.cholesterol as NSString).doubleValue)
+            let cholesterol = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryCholesterol), quantity: cholesterolUnit, startDate: timeFoodWasEntered, endDate: timeFoodWasEntered)
+            
+            let foodDataSet = NSSet(array: [calories, calcium, cholesterol, fatTotal, protein,sugar, vitaminC])
+            
+            let foodCorrelation = HKCorrelation(type: HKCorrelationType.correlationTypeForIdentifier(HKCorrelationTypeIdentifierFood), startDate: timeFoodWasEntered, endDate: timeFoodWasEntered, objects: foodDataSet as Set<NSObject>, metadata: foodMetaData)
+            
+            var store:HealthStoreConstant = HealthStoreConstant()
+            store.healthStore?.saveObject(foodCorrelation, withCompletion: { (success, error) -> Void in
+                if success {
+                    println("saved successfully")
+                }
+                else {
+                    println("Error Ocurred: \(error)")
+                }
+            })
+            
+            
             
             
         }
