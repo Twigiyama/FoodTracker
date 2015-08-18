@@ -187,8 +187,30 @@ class DetailViewController: UIViewController {
                 println("User canceled authorisation request \(error)")
             }
         })
+    }
+    
+    func saveFoodItem (foodItem: USDAItem) {
+        if HKHealthStore.isHealthDataAvailable() {
+            let timeFoodWasEntered = NSDate()
             
-        
-
+            let foodMetaData = [
+                HKMetadataKeyFoodType : foodItem.name,
+                "HKBrandName" : "USDAItem",
+                "HKFoodTypeID" : foodItem.idValue
+            ]
+            
+            let energyUnit = HKQuantity(unit: HKUnit.kilocalorieUnit(), doubleValue:(foodItem.energy as NSString).doubleValue)
+            let calories = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryEnergyConsumed), quantity: energyUnit, startDate: timeFoodWasEntered, endDate: timeFoodWasEntered)
+            
+            let calciumUnit = HKQuantity(unit: HKUnit.gramUnitWithMetricPrefix(HKMetricPrefix.Milli), doubleValue: (foodItem.calcium as NSString).doubleValue)
+            let calcium = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryCalcium), quantity: calciumUnit, startDate: timeFoodWasEntered, endDate: timeFoodWasEntered)
+            
+            let carboHydrateUnit = HKQuantity(unit: HKUnit.gramUnit, doubleValue: (foodItem.carbohydrate as NSString).doubleValue)
+            let carbohydrates = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryCarbohydrates), quantity: carboHydrateUnit, startDate: timeFoodWasEntered, endDate: timeFoodWasEntered)
+            
+            
+            
+            
+        }
     }
 }
